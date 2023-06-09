@@ -1,0 +1,13 @@
+---
+title: "HelloMarkdown"
+author: "Long Bao"
+date: "2023-06-09"
+output: html_document
+---
+
+```{r}
+t <- 5
+print(t)
+print("Hello world")
+```
+
