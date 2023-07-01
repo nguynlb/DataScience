@@ -1,0 +1,127 @@
+---
+title: "visualization_transform_data"
+author: "Long Bao"
+date: "2023-06-28"
+output: html_document
+---
+## Load Package
+
+```{r}
+pacman::p_load(tidyverse)
+```
+
+```{r}
+mpg
+str(mpg)
+
+```
+```{r}
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + geom_point()
+```
+```{r}
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + geom_point() + geom_point(data = mpg %>% dplyr::filter(hwy > 20, displ > 5), mapping = aes(x = displ, y = hwy), colour = "red", size = 2.2) + labs(title = "Hwy & displ") + xlab("Display") + ylab("hwy")
+```
+```{r}
+mpg
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy, colour = drv)) + geom_point()
+
+```
+```{r}
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy, colour = cyl)) + geom_point()
+```
+```{r}
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy, colour = drv)) + geom_point() + geom_smooth(mapping = aes(linetype = drv))
+```
+
+```{r}
+CPS85
+ggplot(data = CPS85,
+       mapping = aes(x = exper, y = wage)) +
+  geom_point()
+```
+```{r}
+pacman::p_load(mosaicData)
+data(CPS85 , package = "mosaicData")
+ggplot(data = dplyr::filter(CPS85, wage < 40, exper < 50), mapping = aes(x = exper, y = wage)) +
+   geom_point(colour = "cornflowerblue", size = 2.2, alpha = .7)
+```
+```{r}
+ggplot(data = CPS85 %>% dplyr::filter(exper < 50, wage < 40), mapping = aes(x = exper, y = wage)) + 
+   geom_point(size = 2.2, alpha = .7) + geom_smooth(method = 'lm')
+```
+```{r}
+ggplot(data = CPS85 %>% dplyr::filter(exper < 50, wage < 40), mapping = aes(x = exper, y = wage, color = sex)) + 
+   geom_point(size = 2.2, alpha = .7) + geom_smooth(method = 'lm')
+```
+```{r}
+ggplot(data = CPS85, mapping = aes(x = exper, y = wage, color = sex)) + geom_point() + geom_smooth(se = F, method = 'lm')
+```
+
+```{r}
+ggplot(data = CPS85, mapping = aes(x = exper, y = wage, color = sex)) + 
+   geom_point() + geom_smooth(method = 'lm') +
+      facet_grid(vars(sex))
+```
+
+```{r}
+ggplot(data = CPS85, mapping = aes(x = exper, y = wage, color = sex)) +
+   geom_point(size = 3, alpha = .7) +
+   geom_smooth(size = 1.8, method = 'lm', se = F) +
+   scale_x_continuous("Experience", seq(0, 60, 10)) +
+   scale_y_continuous("Wage",seq(0, 40, 10), label = scales::dollar) + 
+   scale_color_manual(values = c("indianred", "cornflowerblue"))
+```
+```{r}
+ggplot(data = CPS85, mapping = aes(x = exper, y = wage, color = sex)) +
+   geom_point( alpha = .7) + 
+   geom_smooth(method = 'lm', alpha = .7, se = F) +
+   scale_x_continuous(name = "Experience", seq(0, 60, 10)) + 
+   scale_y_continuous(name = "Wage",seq(0, 40, 10), label = scales::dollar) +
+   scale_color_manual(values = c("indianred", "cornflowerblue")) +
+   facet_wrap(~sector)
+```
+
+```{r}
+ggplot(data = CPS85, mapping = aes(x = exper, y = wage, color = sex)) + 
+   geom_point(alpha = .7) + geom_smooth(formula = y ~ x, alpha = .7, se = F, method = 'lm') +
+   scale_x_continuous(breaks = seq(0, 60, 10)) +
+   scale_y_continuous(breaks = seq(0, 40, 10), label = scales::dollar) +
+   scale_color_manual(values = c("indianred", "cornflowerblue")) +
+   labs(title = "Relationship between experience and wage", 
+        subtitle = "Current Population Survey", 
+        x = "Years of Experience", 
+        y = "Hourly Wage", 
+        caption = "source: http://mosaic-web.org/", 
+        color = "Gender")
+```
+```{r}
+ggplot(data = CPS85, mapping = aes(x = exper, y = wage, color = sex)) + 
+   geom_point(alpha = .7) + geom_smooth(formula = y ~ x, alpha = .7, se = F, method = 'lm') +
+   scale_x_continuous(breaks = seq(0, 60, 10)) + 
+   scale_y_continuous(breaks = seq(0, 40, 10), label = scales::dollar) +
+   scale_color_manual(values = c("indianred", "cornflowerblue")) + 
+   facet_wrap(~sector) + 
+   labs(title = "Relationship between experience and wage", 
+        subtitle = "Current Population Survey", 
+        section = "source: https://mosaic-web.org/", 
+        x = "Years of Experience", 
+        y = "Hourly Wage", 
+        color = "Gender") + 
+   theme_minimal()
+```
+
+```{r}
+mpg
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+   geom_point(size = 2.2, alpha = .7) + geom_smooth(method = 'lm', formula = y ~ poly(x ,2))
+```
+
+```{r}
+ggplot(data = mpg, mapping = aes(x = manufacturer, fill = manufacturer)) +
+   geom_bar()
+```
+
+```{r}
+
+```
+
