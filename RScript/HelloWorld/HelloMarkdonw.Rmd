@@ -1,13 +1,134 @@
 ---
-title: "HelloMarkdown"
+title: "Day 2"
 author: "Long Bao"
-date: "2023-06-09"
-output: html_document
+date: "2023-10-25"
 ---
 
 ```{r}
-t <- 5
-print(t)
-print("Hello world")
+# Calculate sum
+curSum <- function(x, i) {
+   vector_1 <- rep(c(1), i)
+   (vector_1 %*% x[1:i])[1]
+}
 ```
+
+```{r}
+x <- c(1, 2, 2.2, 1, 2.3)
+curSum(x, 3)
+```
+```{r}
+volumeDataFrame <- function(R){
+   volumeValue <- 4 * pi * R * R * R/ 3
+   data.frame(Radius = R, Volume = volumeValue)
+}
+
+volumeDataFrame(3:20)
+```
+
+
+
+```{r}
+pacman::p_load(tidyverse)
+pacman::p_load(readxl)
+```
+
+
+
+
+
+```{r}
+mpg
+```
+
+```{r}
+specifyIndex <- function(df) {
+   df$Index <- ifelse(df$displ > 2, ifelse(df$displ > 4, "YES", "NO"), "Nothing")
+   df
+}
+df <- mpg
+specifyIndex(df)
+```
+
+
+```{r}
+vector <- df$hwy
+vector
+sort(vector)
+
+phanvi <- function(vector, p) {
+   sorted_vector = sort(vector)
+   i <- p * length(vector) / 100;
+   if (as.integer(i)){
+      pv <- 0.5 * (sorted_vector[i] + sorted_vector[i + 1])
+   } else {
+      pv <- sorted_vector[floor(i)]
+   }
+   pv
+}
+
+phanvi(vector, 50)
+```
+
+```{r}
+pacman::p_load(tidyverse)
+mpg[2, 3]
+```
+
+```{r}
+for (i in 1:ncol(mpg)){
+   print(mpg[1, i])
+}
+
+```
+
+```{r}
+pacman::p_load(tidyverse)
+
+for (num in names(mpg)){
+   print(mpg[[num]])
+}
+```
+```{r}
+p <- function(k) {
+   choose(8, k) * 0.3^k * 0.7^(8 - k);
+}
+P <- function(k) sum(p(0:k));
+
+
+
+k = 0:8
+plot(k, p(k), type='h', ylab='P(X = x)', main="Distribution of B(n,p)") 
+
+f <- function(x, muy = 0, sigma = 1) {
+   exp(-(x - muy) ^ 2 / (2 * sigma^2)) / sqrt(2 * pi * sigma ^ 2);
+}
+
+F <- function(y, muy = 0, sigma = 1)  {
+   integrate(function (x) f(x, muy, sigma), lower=-Inf, upper=y);
+}
+curve(f(x), from=-3, to = 3)
+
+k = 0:8
+x <- sample(k, size = 100, prob=p(k))
+
+```
+
+
+```{r}
+fp <- function(p) 0.07 * p **(-0.93);
+
+fp(1)
+Fp <- function(p) {
+   if (p < 0) 0
+   else if (p > 1) {1}
+   else
+      {integrate(fp, lower=0, upper=p)}
+}
+
+Fp(0.2)
+```
+
+```{r}
+```
+
 
